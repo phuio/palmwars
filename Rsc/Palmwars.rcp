@@ -1,0 +1,149 @@
+#include "PalmwarsRsc.h"
+
+MENU ID PalmwarsMenuBar
+BEGIN
+    PULLDOWN "Game"
+    BEGIN
+        MENUITEM "New Game" ID NewGame
+    END
+
+    PULLDOWN "Options"
+    BEGIN
+        MENUITEM "About Palmwars" ID About
+    END
+END
+
+MENU ID PalmwarsSmallMenu
+BEGIN
+    PULLDOWN "Options"
+    BEGIN
+        MENUITEM "About Palmwars" ID About
+    END
+END
+
+FORM ID PalmwarsStartForm AT (0 0 160 160)
+MENUID PalmwarsSmallMenu
+BEGIN
+    TITLE "Palmwars"
+
+    LABEL "Players" ID PlayersLabel AT (7 61)
+
+    PUSHBUTTON "1" ID NumPlayers1 AT (43 61 AUTO AUTO) GROUP 1
+    PUSHBUTTON "2" ID NumPlayers2 AT (55 61 AUTO AUTO) GROUP 1
+    PUSHBUTTON "3" ID NumPlayers3 AT (67 61 AUTO AUTO) GROUP 1
+    PUSHBUTTON "4" ID NumPlayers4 AT (79 61 AUTO AUTO) GROUP 1
+
+    CHECKBOX "With Palm" ID MabsCheckbox AT (98 61 AUTO AUTO)
+
+    LABEL "Player 1" ID Player1Label AT (25 83)
+    FIELD ID Player1Name AT (64 83 70 AUTO) EDITABLE UNDERLINED SINGLELINE MAXCHARS 10 AUTOSHIFT
+
+    LABEL "Player 2" ID Player2Label AT (25 95)
+    FIELD ID Player2Name AT (64 95 70 AUTO) EDITABLE UNDERLINED SINGLELINE MAXCHARS 10 AUTOSHIFT
+
+
+    LABEL "Player 3" ID Player3Label  AT (25 107)
+    FIELD ID Player3Name AT (64 107 70 AUTO) EDITABLE UNDERLINED SINGLELINE MAXCHARS 10 AUTOSHIFT
+
+    LABEL "Player 4" ID Player4Label  AT (25 119)
+    FIELD ID Player4Name AT (64 119 70 AUTO) EDITABLE UNDERLINED SINGLELINE MAXCHARS 10 AUTOSHIFT
+
+    BUTTON "Choose sector..." ID BeginButton AT (CENTER 141 72 12) LEFTANCHOR FRAME FONT 0
+
+    FORMBITMAP AT (5 19) BITMAP PalmwarsBitmap
+END
+
+FORM ID PalmwarsGameForm AT (0 0 160 160)
+MENUID PalmwarsMenuBar
+DEFAULTBTNID CancelButton
+BEGIN
+    TITLE "Palmwars"
+END
+
+FORM ID PalmwarsNumArmiesForm AT (2 102 156 56)
+MODAL
+DEFAULTBTNID CancelButton
+BEGIN
+    TITLE "How many armies?"
+    PUSHBUTTON "0" ID Armies0 AT (18 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "1" ID Armies1 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "2" ID Armies2 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "3" ID Armies3 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "4" ID Armies4 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "5" ID Armies5 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "6" ID Armies6 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "7" ID Armies7 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "8" ID Armies8 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    PUSHBUTTON "9" ID Armies9 AT (PrevRight+1 20 AUTO AUTO) GROUP 2
+    BUTTON "Move" ID MoveButton AT (101 40 36 12) LEFTANCHOR FRAME FONT 0
+    BUTTON "Cancel" ID CancelButton AT (61 40 36 12) LEFTANCHOR FRAME FONT 0
+    BUTTON "Pass" ID PassButton  AT (21 40 36 12) LEFTANCHOR FRAME FONT 0
+END
+
+FORM ID PalmwarsAboutForm AT (2 2 156 156)
+MODAL
+BEGIN
+    TITLE "About Palmwars"
+    FORMBITMAP AT (3 17) BITMAP PalmwarsBitmap
+    LABEL "version 2.1" ID Label AT (CENTER 48)
+    LABEL "Based on the game Mabwar," ID Label AT (CENTER 66)
+    LABEL "originally for the BBC Micro" ID Label AT (CENTER 78)
+    LABEL "http://www.palmstuff.co.uk/" ID Label AT(CENTER 96)
+    LABEL "©2001-3 Richard Leggett" ID Label AT (CENTER 116)
+    BUTTON "OK" ID OkButton AT (CENTER 134 36 12)
+END
+
+ALERT ID PlayerNamesAlert
+INFORMATION
+BEGIN
+    TITLE "Palmwars"
+    MESSAGE "You must fill in player names before you can start."
+    BUTTONS "OK"
+END
+
+ALERT ID InsufficientPlayersAlert
+INFORMATION
+BEGIN
+    TITLE "Palmwars"
+    MESSAGE "You must have more than one player if you aren't playing with Mabs."
+    BUTTONS "OK"
+END
+
+DATA "maps" ID MapData "palmwarsmaps.bin"
+
+
+BITMAPCOLOR ID PalmwarsBitmap "palmwars.bmp"
+BITMAP ID LeftArrowBitmap  "leftarrow.bmp"
+BITMAP ID LeftArrowSelBitmap "leftarrowsel.bmp"
+BITMAP ID RightArrowBitmap  "rightarrow.bmp"
+BITMAP ID RightArrowSelBitmap "rightarrowsel.bmp"
+
+FORM ID PalmwarsSectorForm  AT ( 0 0 160 160 )
+MENUID PalmwarsSmallMenu
+FRAME
+BEGIN
+    TITLE "Palmwars"
+    BUTTON "Begin" ID BeginButton AT (CENTER 141 36 12) LEFTANCHOR FRAME FONT 0
+    FORMBITMAP AT (5 19) BITMAP PalmwarsBitmap
+    BUTTON "" ID RightArrowButton  AT (127 81 8 AUTO) BITMAPID RightArrowBitmap GRAPHICAL NOFRAME SELECTEDBITMAPID RightArrowSelBitmap
+    BUTTON "" ID LeftArrowButton  AT (20 81 8 AUTO) BITMAPID LeftArrowBitmap GRAPHICAL NOFRAME SELECTEDBITMAPID LeftArrowSelBitmap
+    LABEL "Sector M" ID SectorName  AT (CENTER 115)
+END
+
+VERSION ID Version "2.1"
+
+ICONFAMILYEX
+BEGIN
+    BITMAP "icon-lg-8.bmp" BPP 8 TRANSPARENTINDEX 210 COMPRESS
+    BITMAP "icon-lg-2.bmp" BPP 2 TRANSPARENTINDEX 0 COMPRESS
+    BITMAP "icon-lg-1.bmp" BPP 1 TRANSPARENTINDEX 0 COMPRESS
+END
+
+SMALLICONFAMILYEX
+BEGIN
+    BITMAP "icon-sm-8.bmp" BPP 8 TRANSPARENTINDEX 210 COMPRESS
+    BITMAP "icon-sm-2.bmp" BPP 2 TRANSPARENTINDEX 0 COMPRESS
+    BITMAP "icon-sm-1.bmp" BPP 1 TRANSPARENTINDEX 0 COMPRESS
+END
+
+LAUNCHERCATEGORY ID LauncherCategory "Games"
